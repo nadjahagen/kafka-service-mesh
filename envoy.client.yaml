@@ -23,5 +23,21 @@ static_resources:
               - endpoint:
                   address:
                     socket_address:
-                      address: envoy-kafka # Kafka broker's host
+                      address: envoy-kafka # Kafka proxy host.
                       port_value: 19092 # Kafka broker's port.
+      transport_socket:
+        name: envoy.transport_sockets.tls
+        typed_config:
+          "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.UpstreamTlsContext
+          common_tls_context:
+            tls_params:
+              tls_minimum_protocol_version: TLSv1_2
+              tls_maximum_protocol_version: TLSv1_2
+            validation_context:
+              match_subject_alt_names:
+                - exact: envoy-kafka
+              trusted_ca:
+                filename: /certs/kafka-broker.ca.cert.pem
+admin:
+  address:
+    socket_address: { address: 127.0.0.1, port_value: 9901 }
