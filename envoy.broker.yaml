@@ -15,19 +15,6 @@ static_resources:
               "@type": type.googleapis.com/envoy.extensions.filters.network.tcp_proxy.v3.TcpProxy
               stat_prefix: tcp
               cluster: localkafka
-          #transport_socket:
-          #  name: envoy.transport_sockets.tls
-          #  typed_config:
-          #    "@type": type.googleapis.com/envoy.extensions.transport_sockets.tls.v3.DownstreamTlsContext
-          #    common_tls_context:
-          #      tls_certificates:
-          #        - certificate_chain: { filename: "./certs/kafka-broker.server.cert.pem" }
-          #          private_key: { filename: "./certs/kafka-broker.server.key.pem" }
-          #          password:
-          #            inline_string: "certkeypass"
-          #      validation_context:
-          #        trusted_ca:
-          #          filename: certs/kafka-broker.ca.cert.pem
   clusters:
     - name: localkafka
       connect_timeout: 0.25s
